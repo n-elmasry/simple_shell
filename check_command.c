@@ -25,6 +25,13 @@ void readCommand(char **command)
 
 	read = getline(command, &n, stdin);
 	if (read == -1)
+	{
+		while(*command != NULL)
+		{
+			free(*command);
+			command++;
+		}
 		exit(0);
+	}
 	(*command)[strcspn(*command, "\n")] = '\0';
 }

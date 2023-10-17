@@ -4,7 +4,7 @@
  * @command: invalid command
  * Return: error message
 */
-char *error_msg(char *command)
+void error_msg(char *command)
 {
 	char *message = malloc(100);
 
@@ -12,8 +12,7 @@ char *error_msg(char *command)
 	_strcat(message, command);
 	_strcat(message, ": not found\n");
 	write(STDERR_FILENO, message, strlen(message));
-
-	return (message);
+	free(message);
 }
 /**
  * executeCommand - a function is responsible for excutng a command
@@ -51,8 +50,7 @@ void executeCommand(char *command, int *code)
 		args[0] = findCommand(args[0], *code);
 		if (is_valid(args[0]) == 0)
 		{
-			message = error_msg(args[0]);
-			free(message);
+			error_msg(args[0]);
 			exit(127);
 		}
 		pid = fork();
