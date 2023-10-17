@@ -12,7 +12,17 @@ int main(void)
 	while (1)
 	{
 		if (check_mode)
+		{
+			_putchar('#');
+			_putchar('c');
+			_putchar('i');
+			_putchar('s');
+			_putchar('f');
+			_putchar('u');
+			_putchar('n');
 			_putchar('$');
+			_putchar(' ');
+		}
 
 		command = NULL;
 		readCommand(&command);
