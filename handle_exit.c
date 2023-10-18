@@ -7,10 +7,11 @@
 */
 void handle_exit_args(char *status)
 {
-    int exit_status, i, len = 0;
+    int exit_status;
+    int len = 0;
     bool valid_status;
+    int i;
     valid_status = true;
-
     for (i = 0; status[i] != '\0'; i++)
     {
         if (status[i] < '0' || status[i] > '9')
@@ -30,7 +31,9 @@ void handle_exit_args(char *status)
             len += write(STDERR_FILENO, status, strlen(status));
             len += write(STDERR_FILENO, "\n", 1);
             if (len < 0)
+            {
                 perror("Error");
+            }
             exit(2);
         }
     }
@@ -40,7 +43,9 @@ void handle_exit_args(char *status)
         len += write(STDERR_FILENO, status, strlen(status));
         len += write(STDERR_FILENO, "\n", 1);
         if (len < 0)
+        {
             perror("Error");
+        }
         exit(2);
     }
     exit(exit_status);

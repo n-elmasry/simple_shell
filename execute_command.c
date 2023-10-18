@@ -44,7 +44,7 @@ void executeCommand(char *command, int *code)
             {
             free(command);
             exit(*code);
-             }
+        }
         else
         {
             handle_exit_args(args[1]);
@@ -75,9 +75,6 @@ void executeCommand(char *command, int *code)
             wait(&flag);
              *code = WEXITSTATUS(flag);
         }
-          free(args[0]);
     }
-
-
     free(message);
 }
