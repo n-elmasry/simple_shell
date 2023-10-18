@@ -6,15 +6,15 @@
 */
 int main(void)
 {
-	int code = 0;
-	char *command;
+	int code = 0, check_mode = isatty(STDIN_FILENO);
 
+	char * command;
 	while (1)
 	{
-		_putchar('$');
+		if (check_mode)
+			_putchar('$');
 
-		command = NULL;
-		readCommand(&command);
+		command = readCommand();
 		if (_strcmp(command, "exit") == 0)
 		{
 			free(command);

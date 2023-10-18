@@ -26,7 +26,7 @@ void error_msg(char *command);
 void handle_exit_args(char *status);
 char *findCommand(char *command, int code);
 int is_valid(char *path);
-void readCommand(char **command);
+char *readCommand();
 void executeCommand(char *command, int *code);
 
 #endif

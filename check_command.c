@@ -18,20 +18,18 @@ int is_valid(char *path)
  * readCommand - a functopn reads the inputted command
  * @command: inputted command to be read
 */
-void readCommand(char **command)
+char* readCommand()
 {
 	size_t n = 0;
 	ssize_t read;
+	char *command = NULL;
 
-	read = getline(command, &n, stdin);
+	read = getline(&command, &n, stdin);
 	if (read == -1)
 	{
-		while(*command != NULL)
-		{
-			free(*command);
-			command++;
-		}
+		free(command);
 		exit(0);
 	}
-	(*command)[strcspn(*command, "\n")] = '\0';
+	(command)[strcspn(command, "\n")] = '\0';
+	return(command);
 }

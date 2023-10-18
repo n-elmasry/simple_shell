@@ -24,6 +24,7 @@ void executeCommand(char *command, int *code)
 	char *args[100], *message = NULL;
 	int i = 0, flag;
 	char *token = strtok(command, " \t\n");
+	char *fullPath;
 	pid_t pid;
 
 	while (token)
@@ -39,7 +40,6 @@ void executeCommand(char *command, int *code)
 	{
 		if (i == 1)
 		{
-			free(command);
 			exit(*code);
 		}
 		else
@@ -47,17 +47,20 @@ void executeCommand(char *command, int *code)
 	}
 	else
 	{
-		args[0] = findCommand(args[0], *code);
-		if (is_valid(args[0]) == 0)
+		fullPath = findCommand(args[0], *code);
+		if (is_valid(fullPath) == 0)
 		{
-			error_msg(args[0]);
+			error_msg(fullPath);
+			free(fullPath);
 			exit(127);
 		}
+		args[0] = fullPath;
 		pid = fork();
 		if (pid == 0)
 		{
 			if (execve(args[0], args, environ) == -1)
 			{
+				free(fullPath);
 				perror("Error");
 				exit(2);
 			}
@@ -68,5 +71,6 @@ void executeCommand(char *command, int *code)
 			*code = WEXITSTATUS(flag);
 		}
 	}
+	free(fullPath);
 	free(message);
 }
