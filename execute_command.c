@@ -4,15 +4,16 @@
  * @command: invalid command
  * Return: error message
 */
-void error_msg(char *command)
+char *error_msg(char *command)
 {
-	char *message = malloc(100);
+        char *message = malloc(100);
 
-	_strcpy(message, "./hsh: 1: ");
-	_strcat(message, command);
-	_strcat(message, ": not found\n");
-	write(STDERR_FILENO, message, strlen(message));
-	free(message);
+        _strcpy(message, "./hsh: 1: ");
+        _strcat(message, command);
+        _strcat(message, ": not found\n");
+        write(STDERR_FILENO, message, strlen(message));
+
+        return (message);
 }
 /**
  * executeCommand - a function is responsible for excutng a command
@@ -39,9 +40,7 @@ void executeCommand(char *command, int *code)
 	if (strcmp(args[0], "exit") == 0)
 	{
 		if (i == 1)
-		{
 			exit(*code);
-		}
 		else
 			handle_exit_args(args[1]);
 	}

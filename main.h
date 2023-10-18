@@ -22,7 +22,7 @@ char *_strcpy(char *dest, const char *src);
 char *_strcat(char *dest, const char *src);
 char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
-void error_msg(char *command);
+char *error_msg(char *command);
 void handle_exit_args(char *status);
 char *findCommand(char *command, int code);
 int is_valid(char *path);
