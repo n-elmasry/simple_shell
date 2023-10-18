@@ -27,6 +27,7 @@ char* readCommand()
 	read = getline(&command, &n, stdin);
 	if (read == -1)
 	{
+		free(command);
 		exit(0);
 	}
 	(command)[strcspn(command, "\n")] = '\0';
