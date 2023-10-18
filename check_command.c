@@ -20,18 +20,14 @@ int is_valid(char *path)
 */
 void readCommand(char **command)
 {
-	size_t n = 0;
-	ssize_t read;
+        size_t n = 0;
+        ssize_t read;
 
-	read = getline(command, &n, stdin);
-	if (read == -1)
-	{
-		while(*command != NULL)
-		{
-			free(*command);
-			command++;
-		}
-		exit(0);
-	}
-	(*command)[strcspn(*command, "\n")] = '\0';
+        read = getline(command, &n, stdin);
+        if (read == -1)
+        {
+            exit(0);
+        }
+
+                (*command)[strcspn(*command, "\n")] = '\0';
 }
