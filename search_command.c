@@ -4,6 +4,7 @@ char *findCommand(char *command, int code)
 {
         int i = 0;
         char *fullPath = malloc(100);
+	char *path;
         const char *searchDirectories[] = {
         "/bin", "/usr/bin", "/usr/local/bin", NULL};
 
@@ -19,8 +20,10 @@ char *findCommand(char *command, int code)
 		}
         }
 	free(fullPath);
-        if (_strcmp(command, "exit") == 0)
+	path = malloc(100);
+	_strcpy(path,command);
+        if (_strcmp(path, "exit") == 0)
                 exit(code);
 
-        return (command);
+        return (path);
 }
