@@ -16,9 +16,9 @@ int is_valid(char *path)
 }
 /**
  * readCommand - a functopn reads the inputted command
- * @command: inputted command to be read
+ * Return: command
 */
-char* readCommand()
+char *readCommand()
 {
 	size_t n = 0;
 	ssize_t read;
@@ -31,5 +31,5 @@ char* readCommand()
 		exit(0);
 	}
 	(command)[strcspn(command, "\n")] = '\0';
-	return(command);
+	return (command);
 }

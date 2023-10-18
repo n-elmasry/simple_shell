@@ -6,14 +6,14 @@
 */
 char *error_msg(char *command)
 {
-        char *message = malloc(100);
+	char *message = malloc(100);
 
-        _strcpy(message, "./hsh: 1: ");
-        _strcat(message, command);
-        _strcat(message, ": not found\n");
-        write(STDERR_FILENO, message, strlen(message));
+	_strcpy(message, "./hsh: 1: ");
+	_strcat(message, command);
+	_strcat(message, ": not found\n");
+	write(STDERR_FILENO, message, strlen(message));
 
-        return (message);
+	return (message);
 }
 /**
  * executeCommand - a function is responsible for excutng a command
@@ -21,16 +21,13 @@ char *error_msg(char *command)
  * @code: exit
 */
 void executeCommand(char *command, int *code)
-{
-	char *args[100], *message = NULL;
+{	char *args[100], *message = NULL;
+	char *token = strtok(command, " \t\n"), *fullPath;
 	int i = 0, flag;
-	char *token = strtok(command, " \t\n");
-	char *fullPath;
 	pid_t pid;
 
 	while (token)
-	{
-		args[i] = token;
+	{	args[i] = token;
 		token = strtok(NULL, " ");
 		i++;
 	}
@@ -45,11 +42,9 @@ void executeCommand(char *command, int *code)
 			handle_exit_args(args[1]);
 	}
 	else
-	{
-		fullPath = findCommand(args[0], *code);
+	{	fullPath = findCommand(args[0], *code);
 		if (is_valid(fullPath) == 0)
-		{
-			error_msg(fullPath);
+		{	error_msg(fullPath);
 			free(fullPath);
 			exit(127);
 		}
@@ -58,18 +53,12 @@ void executeCommand(char *command, int *code)
 		if (pid == 0)
 		{
 			if (execve(args[0], args, environ) == -1)
-			{
-				free(fullPath);
+			{	free(fullPath);
 				perror("Error");
 				exit(2);
-			}
-		}
+			}}
 		else
-		{
-			wait(&flag);
-			*code = WEXITSTATUS(flag);
-		}
-	}
+		{	wait(&flag);
+			*code = WEXITSTATUS(flag); }}
 	free(fullPath);
-	free(message);
-}
+	free(message); }

@@ -7,8 +7,8 @@
 int main(void)
 {
 	int code = 0, check_mode = isatty(STDIN_FILENO);
+	char *command;
 
-	char * command;
 	while (1)
 	{
 		if (check_mode)
